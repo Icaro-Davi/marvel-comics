@@ -4,7 +4,7 @@ This is a project for a job interview at brisanet
 
 ## How execute
 
-- create a .env file and add 
+- create an .env file and add the following keys
 ```
 NEXT_PUBLIC_MARVEL_PUBLIC_KEY=YOUR_KEY
 NEXT_PUBLIC_GOOGLE_API_KEY=YOUR_KEY
