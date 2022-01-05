@@ -1,14 +1,13 @@
+import { Fragment } from 'react';
 import { NextPage } from "next";
-import { Typography } from 'antd';
 
-const { Title } = Typography;
+import Comics from '../components/Comics';
 
 const Main: NextPage  = props => {
-
     return (
-        <div>
-            <Title>Hello World</Title>
-        </div>
+        <Fragment>
+            <Comics />
+        </Fragment>
     )
 }
 
