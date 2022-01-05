@@ -1,4 +1,5 @@
 export type ComicFormatType = 'comic' | 'magazine' | 'trade paperback' | 'hardcover' | 'digest' | 'graphic novel' | 'digital comic' | 'infinite comic';
+export type ComicOrderByType = 'focDate' | 'onsaleDate' | 'title' | 'issueNumber' | 'modified' | '-focDate' | '-onsaleDate' | '-title' | '-issueNumber' | '-modified';
 
 export type getComicsParams = {
     format?: ComicFormatType;
@@ -10,7 +11,7 @@ export type getComicsParams = {
     titleStartsWith?: string;
     startYear?: number;
     issueNumber?: number;
-    orderBy?: 'focDate' | 'onsaleDate' | 'title' | 'issueNumber' | 'modified' | '-focDate' | '-onsaleDate' | '-title' | '-issueNumber' | '-modified';
+    orderBy?: ComicOrderByType;
     limit?: number;
     offset?: number;
 }
