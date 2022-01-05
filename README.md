@@ -4,6 +4,13 @@ This is a project for a job interview at brisanet
 
 ## How execute
 
+- create a .env file and add 
+```
+NEXT_PUBLIC_MARVEL_PUBLIC_KEY=YOUR_KEY
+NEXT_PUBLIC_GOOGLE_API_KEY=YOUR_KEY
+MARVEL_PRIVATE_KEY=YOUR_KEY
+```
+
 - for develop mode
 ```bash
 yarn dev
