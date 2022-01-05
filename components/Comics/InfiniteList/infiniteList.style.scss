@@ -1,0 +1,23 @@
+.infinite-list-container {
+    position: relative;
+    flex: 1;
+
+    #infinite-list {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
+
+        .list-container {
+            padding: $spacing-sm;
+
+            .checkbox {
+                margin-right: $spacing-sm;
+            }
+
+            a{
+                cursor: pointer;
+            }
+        }
+    }
+}

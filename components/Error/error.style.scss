@@ -1,0 +1,56 @@
+.error-container {
+    overflow: hidden;
+    position: relative;
+
+    .img-container {
+        position: absolute;
+        height: auto;
+        bottom: -30px;
+        transform: translateY(0px);
+        animation: float 6s ease-in-out infinite;
+    }
+
+    .video-container {
+        position: absolute;
+    }
+
+    .transparent-screen {
+        position: relative;
+        background-color: transparent;
+    }
+
+    .text-box-container {
+        position: absolute;
+        top: 0;
+        padding: $spacing-md;
+        text-align: center;
+
+        .text-white {
+            color: #fff;
+        }
+
+        .button {
+            background-color: transparent;
+            margin-top: $spacing-md;
+        }
+    }
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(20px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .error-container .img-container {
+        width: 75%;
+        height: auto;
+    }
+}

@@ -1,0 +1,49 @@
+.map-container {
+    height: 250px;
+}
+
+.comics-list-container {
+    margin-top: $spacing-md;
+
+    .list-container {
+        padding: $spacing-sm;
+        max-height: 300px;
+        overflow: auto;
+
+        .item-list-container-mobile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .item-list-container-desktop {
+            display: flex;
+            align-items: flex-start;
+        }
+        .item-card-container {
+            position: relative;
+            margin: $spacing-md;
+
+            .delete-button {
+                position: absolute;
+                left: -10px;
+                top: -10px;
+            }
+
+            img {
+                width: auto;
+                height: 150px;
+                margin: auto auto;
+                display: block;
+            }
+        }
+        .text {
+            margin-top: $spacing-md;
+        }
+    }
+}
+
+.submit-button-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: $spacing-md;
+}

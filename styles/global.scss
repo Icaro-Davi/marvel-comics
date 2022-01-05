@@ -4,6 +4,7 @@
     display: flex;
 }
 
+// Default Colors
 .background-white {
     background-color: #fffff6e3;
 }
@@ -12,6 +13,7 @@
     background-color: #181818;
 }
 
+// Flex Defaults
 .flex-row {
     display: flex;
 }
@@ -29,6 +31,15 @@
     justify-content: center;
 }
 
+.flex-align-end {
+    align-items: flex-end;
+}
+
+.flex-justify-end {
+    justify-content: flex-end;
+}
+
+// Size Defaults
 .w-100 {
     width: 100%;
 }
@@ -41,6 +52,11 @@
     height: auto;
 }
 
+// Spacing Default
 .margin-none {
     margin: 0 !important;
+}
+
+.padding-none {
+    padding: 0 !important;
 }
