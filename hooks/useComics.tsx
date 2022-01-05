@@ -12,8 +12,12 @@ const useComics = (initialParams?: getComicsParams) => {
     const getComics = async (params?: getComicsParams) => {
         try {
             setLoading(true);
-            const { results, total, limit, count } = await MarvelApiRequestor.getComics(params);
-            setPagination(oldState => ({ offset: oldState.offset + count, total, limit }));
+            const { results, total, limit, offset, count } = await MarvelApiRequestor.getComics(params);
+            setPagination(oldState => ({
+                offset: !!offset ? oldState.offset + count : limit,
+                total,
+                limit
+            }));            
             !!comics.length
                 ? setComics(oldState => [...oldState, ...results.filter(result => !comics.find(comics => comics.id === result.id))])
                 : setComics(results);
@@ -22,13 +26,13 @@ const useComics = (initialParams?: getComicsParams) => {
             message.error('Falha ao requisitar a listar de quadrinhos.', 6);
             setTimeout(() => {
                 message.warning('Tentando novamente', 6)
-                getComics(filters);
+                getComics(removeBlankValuesFromFilter(filters));
             }, 12000);
         }
     }
 
     const loadMore = () => {
-        getComics(filters ? { ...filters, offset: pagination.offset + 1 } : {
+        getComics(filters ? { ...filters, offset: pagination.offset} : {
             ...initialParams,
             limit: initialParams?.limit || 10,
             offset: pagination.offset + 1
@@ -40,12 +44,16 @@ const useComics = (initialParams?: getComicsParams) => {
         setPagination({ offset: 0, total: 0, limit: 0 });
     }
 
-    useEffect(() => {
-        resetList();
-        getComics(Object.keys(filters).reduce((prev, current) => ({
+    const removeBlankValuesFromFilter = (filters: getComicsParams): getComicsParams => (
+        Object.keys(filters).reduce((prev, current) => ({
             ...prev,
             ...!!(filters as any)[current] ? { [current]: (filters as any)[current] } : {}
-        }), {}));
+        }), {})
+    )
+
+    useEffect(() => {
+        resetList();
+        getComics(removeBlankValuesFromFilter(filters));
     }, [filters]);
 
     return {

@@ -1,25 +1,11 @@
 import { Modal, Grid, message, Typography, List, Button, Tooltip, Popconfirm } from 'antd';
-import { Dispatch, forwardRef, ForwardRefRenderFunction, SetStateAction, useEffect, useImperativeHandle, useRef, useState } from "react";
-import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
+import { Dispatch, forwardRef, ForwardRefRenderFunction, SetStateAction, useImperativeHandle, useState } from "react";
 import { FaTrash } from 'react-icons/fa';
 
 import { ComicsType } from '../../../services/marvel-requestor/marvel.types';
+import GoogleMap, { PositionType } from './GoogleMap';
 
 const { Text, Title } = Typography;
-
-const defaultPosition = { lat: -7.224427, lng: -39.326499 };
-
-const getLocation = (callback: (position: GeolocationPosition) => void) => {
-    try {
-        navigator.geolocation.getCurrentPosition(callback);
-    } catch (error) {
-        message.warning('Geolocalização não suportada pelo navegador.', 6);
-    }
-}
-
-type PositionType = {
-    lat: number; lng: number;
-}
 
 export interface DeliveryLocationModalRef {
     visibility: boolean;
@@ -35,29 +21,20 @@ interface DeliveryLocationModalProps {
 }
 
 const DeliveryLocationModal: ForwardRefRenderFunction<DeliveryLocationModalRef, DeliveryLocationModalProps> = (props, ref) => {
-    const initialLocation = useRef<PositionType>(defaultPosition);
     const breakpoints = Grid.useBreakpoint();
     const [visibility, setVisibility] = useState(false);
     const [userLocation, setLocation] = useState<PositionType>();
 
-    const { isLoaded } = useJsApiLoader({
-        id: 'google-map-script',
-        googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY as string
-    });
-
     const openModal = () => setVisibility(true);
     const closeModal = () => setVisibility(false);
 
-    const getUserLocation = () => {
-        getLocation((geolocation) => {
-            let location = { lat: geolocation.coords.latitude, lng: geolocation.coords.longitude };
-            setLocation(location);
-            initialLocation.current = location;
-        })
-    }
-
     const removeComicFromBag = (comicId: number) => {
         props.setComics(oldState => oldState.filter(comic => comic.id !== comicId))
+    }
+
+    const onSendComics = () => {
+        message.success('Agora aguarde os seus quadrinhos chegarem na sua localização', 6);
+        console.log(userLocation, props.comics)
     }
 
     useImperativeHandle(ref, () => ({
@@ -67,8 +44,6 @@ const DeliveryLocationModal: ForwardRefRenderFunction<DeliveryLocationModalRef, 
             closeModal,
         }
     }));
-
-    useEffect(getUserLocation, []);
 
     return (
         <Modal
@@ -81,42 +56,36 @@ const DeliveryLocationModal: ForwardRefRenderFunction<DeliveryLocationModalRef, 
         >
             <div>
                 <Title level={5}>Selecione a localização da entrega: </Title>
-                <div style={{ height: 250 }}>
-                    {isLoaded && (
-                        <GoogleMap
-                            mapContainerStyle={{ width: '100%', height: '100%' }}
-                            onClick={(e) => e.latLng && setLocation({ lat: e.latLng.lat(), lng: e.latLng.lng() })}
-                            center={initialLocation.current}
-                            zoom={15}
-                        >
-                            <Marker position={userLocation ? userLocation : defaultPosition} />
-                        </GoogleMap>
-                    )}
-                </div>
-                <div style={{ marginTop: 12 }}>
+                <GoogleMap {...{ setLocation, userLocation }} />
+                <div className='comics-list-container'>
                     <Title level={5}>Quadrinhos Selecionados: </Title>
                     <List
                         rowKey='id'
-                        style={{ padding: 6, maxHeight: 300, overflow: 'auto' }}
+                        className='list-container'
                         dataSource={props.comics}
-                        locale={{ emptyText: 'Não tem quadrinhos no momento' }}
+                        locale={{ emptyText: 'Você não selecionou nenhum quadrinho' }}
                         renderItem={item => (
-                            <List.Item key={item.id} className={`'background-white ${breakpoints.xs ? 'flex-column' : 'flex-row'}`} style={{ alignItems: breakpoints.xs ? 'center' : 'flex-start' }}>
-                                <div style={{ position: 'relative', margin: 12 }}>
-                                    <div style={{ position: 'absolute', left: -10, top: -10 }}>
+                            <List.Item key={item.id} className={`background-white ${breakpoints.xs ? 'item-list-container-mobile' : 'item-list-container-desktop'}`}>
+                                <div className='item-card-container'>
+                                    <div className='delete-button' >
                                         <Tooltip title='Remover'>
                                             <Button danger onClick={() => removeComicFromBag(item.id)} shape='circle' icon={<FaTrash />} />
                                         </Tooltip>
                                     </div>
-                                    <img style={{ width: 'auto', height: 150, margin: 'auto auto', display: 'block' }} src={`${item.thumbnail.path}/portrait_medium.${item.thumbnail.extension}`} />
+                                    <img src={`${item.thumbnail.path}/portrait_medium.${item.thumbnail.extension}`} />
                                 </div>
-                                <Text strong style={{ textAlign: breakpoints.xs ? 'center' : 'left', width: '100%', marginTop: 12 }} >{item.title}</Text>
+                                <Text strong className='text w-100' style={{ textAlign: breakpoints.xs ? 'center' : 'left' }}>{item.title}</Text>
                             </List.Item>
                         )}
                     />
                 </div>
-                <div className='flex-column' style={{ marginTop: 12 }}>
-                    <Popconfirm title='Finalizar?' onConfirm={() => message.success('Agora aguarde os seus quadrinhos chegarem na sua localização', 6)}>
+
+                <div className='submit-button-container'>
+                    <Popconfirm
+                        disabled={!props.comics.length}
+                        title='Finalizar?'
+                        onConfirm={onSendComics}
+                    >
                         <Button type='primary'>Enviar</Button>
                     </Popconfirm>
                 </div>
