@@ -4,7 +4,7 @@ const { Header, Footer, Content } = Layout;
 
 const PageLayout: React.FC = props => (
     <div className='app flex-column'>
-        <Row className='app-background' justify='center'>
+        <Row className='app-background app-row' justify='center'>
             <Col xs={24} md={18} lg={14}>
                 <div className='flex-column container background-white'>
                     <Header className='header background-white'>
