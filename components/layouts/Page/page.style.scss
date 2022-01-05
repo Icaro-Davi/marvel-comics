@@ -1,0 +1,57 @@
+.app {
+    flex: 1;
+    overflow: hidden;
+
+    .app-background {
+        flex: 1;
+        position: relative;
+        padding-top: $spacing-md;
+        padding-bottom: $spacing-md;
+        background: url("/image/wallpaper-marvel.jpg") 0 0;
+    }
+
+    .container {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 3px;
+        padding: $spacing-md;
+        padding-bottom: 0;
+    }
+
+    .header {
+        display: flex;
+        justify-content: center;
+        height: 75px;
+        background-color: transparent;
+        padding: 0;
+
+        .logo-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .logo-position {
+            position: absolute;
+            top: -20px;
+        }
+
+        .logo-image {
+            width: 200px;
+            height: auto;
+        }
+    }
+
+    .content {
+        display: flex;
+        flex: 1;
+        overflow: auto;
+    }
+
+    .footer {
+        display: flex;
+        justify-content: center;
+        background-color: transparent;
+    }
+}

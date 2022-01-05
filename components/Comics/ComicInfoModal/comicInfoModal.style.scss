@@ -1,0 +1,28 @@
+.comicInfoModal-card-container {
+    margin-top: 30px;
+
+    .margin-info-container {
+        padding-left: $spacing-md;
+    }
+
+    .authors-tag {
+        margin-bottom: $spacing-xs;
+    }
+
+    .characters-container {
+        width: 100%;
+        overflow-x: auto;
+
+        .scroll-container {
+            display: inline-flex;
+
+            .card-character-container {
+                border: 1px solid #ccc;
+                padding: $spacing-xs;
+                width: 100px;
+                flex: 1;
+                border-radius: 3px;
+            }
+        }
+    }
+}
