@@ -17,13 +17,14 @@ const ListComics: React.FC = props => {
     const removeAll = () => setSelectedComics([]);
 
     return (
-        <div className='flex-column' style={{ height: '100%' }} >
+        <div className='flex-column h-100'>
             <DeliveryLocationModal
                 ref={deliveryLocationModalRef}
                 comics={selectedComics}
                 setComics={setSelectedComics}
             />
             <FilterComics
+                isLoading={isLoading}
                 selectedComics={selectedComics}
                 actions={{
                     applyFilters: actions.getComics,
