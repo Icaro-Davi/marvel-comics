@@ -1,4 +1,5 @@
 import { Layout, Row, Col } from 'antd';
+import Img from '../../Img';
 
 const { Header, Footer, Content } = Layout;
 
@@ -10,7 +11,7 @@ const PageLayout: React.FC = props => (
                     <Header className='header background-white'>
                         <div className='logo-container'>
                             <div className='logo-position'>
-                                <img src='/svg/marvel.svg' className='logo-image' />
+                                <Img src='/svg/marvel.svg' className='logo-image' alt='Marvel logo' />
                             </div>
                         </div>
                     </Header>
@@ -18,7 +19,7 @@ const PageLayout: React.FC = props => (
                         {props.children}
                     </Content>
                     <Footer className='footer background-white'>
-                        <span>Desenvolvido por <a href='https://github.com/icaro-davi' target='_blank'>Icaro Davi</a></span>
+                        <span>Desenvolvido por <a rel='noreferrer' href='https://github.com/icaro-davi' target='_blank'>Icaro Davi</a></span>
                     </Footer>
                 </div>
             </Col>

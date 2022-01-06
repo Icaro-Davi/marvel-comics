@@ -3,6 +3,7 @@ import { Dispatch, forwardRef, ForwardRefRenderFunction, SetStateAction, useImpe
 import { FaTrash } from 'react-icons/fa';
 
 import { ComicsType } from '../../../services/marvel-requestor/marvel.types';
+import Img from '../../Img';
 import GoogleMap, { PositionType } from './GoogleMap';
 
 const { Text, Title } = Typography;
@@ -72,7 +73,7 @@ const DeliveryLocationModal: ForwardRefRenderFunction<DeliveryLocationModalRef, 
                                             <Button danger onClick={() => removeComicFromBag(item.id)} shape='circle' icon={<FaTrash />} />
                                         </Tooltip>
                                     </div>
-                                    <img src={`${item.thumbnail.path}/portrait_medium.${item.thumbnail.extension}`} />
+                                    <Img src={`${item.thumbnail.path}/portrait_medium.${item.thumbnail.extension}`} alt={item.title} />
                                 </div>
                                 <Text strong className='text w-100' style={{ textAlign: breakpoints.xs ? 'center' : 'left' }}>{item.title}</Text>
                             </List.Item>

@@ -6,6 +6,7 @@ moment.locale('pt-br');
 import { ComicCharactersType, ComicType } from "../../../services/marvel-requestor/marvel.types";
 import MarvelApiRequestor from "../../../services/marvel-requestor";
 import CardItem from "./CardItem";
+import Img from "../../Img";
 
 const { Title, Text } = Typography;
 
@@ -56,7 +57,11 @@ const ComicInfoModal: ForwardRefRenderFunction<RefComicInfoModal> = (props, ref)
             <Card size='small' className='comicInfoModal-card-container'>
                 <Row className='w-100' justify='center'>
                     <Col xs={24} sm={6} md={6} className='flex-column flex-align-center'>
-                        <img style={{ width: breakpoints.xs ? '80%' : '100%', height: 'auto' }} src={`${currentComic?.thumbnail.path}/portrait_uncanny.${currentComic?.thumbnail.extension}`} />
+                        <Img 
+                            style={{ width: breakpoints.xs ? '80%' : '100%', height: 'auto' }}
+                            src={`${currentComic?.thumbnail.path}/portrait_uncanny.${currentComic?.thumbnail.extension}`}
+                            alt={currentComic?.title || 'Comic'}
+                        />
                     </Col>
                     <Col xs={24} md={18} className='margin-info-container' style={{ textAlign: breakpoints.xs ? 'center' : 'justify' }}>
                         <Title level={3}>{currentComic?.title}</Title>
@@ -94,9 +99,10 @@ const ComicInfoModal: ForwardRefRenderFunction<RefComicInfoModal> = (props, ref)
                                         {characters.map(character => (
                                             <Popover key={character.id} title='Descrição' trigger='click' content={<div className='w-100'><Text>{character.description || 'Descrição Indisponível'}</Text></div>}>
                                                 <div className='card-character-container'>
-                                                    <div>
-                                                        <img className='w-100 h-auto' src={`${character.thumbnail.path}/portrait_medium.${character.thumbnail.extension}`} />
-                                                    </div>
+                                                    <Img
+                                                        src={`${character.thumbnail.path}/portrait_medium.${character.thumbnail.extension}`}
+                                                        alt={character.name}
+                                                    />
                                                     <div>
                                                         <Text strong >{character.name}</Text>
                                                     </div>

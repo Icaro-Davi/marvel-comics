@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import { Button, message, Typography } from 'antd';
+import Img from '../Img';
 
 const { Title, Text } = Typography;
 
@@ -13,7 +14,7 @@ const Error: React.FC = props => {
                 </video>
             </div>
             <div className='img-container'>
-                <img className='w-100 h-100' src='/image/iron-man.png' />
+                <Img className='w-100 h-100' src='/image/iron-man.png' alt='Tony stark draw' />
             </div>
             <div className='w-100 h-100 transparent-screen'></div>
             <div className='flex-column text-box-container'>

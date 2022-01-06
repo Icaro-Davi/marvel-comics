@@ -1,0 +1,11 @@
+.next-image-container {
+    position: relative;
+    span {
+        position: unset !important;
+        img {
+            position: unset !important;
+            width: unset !important;
+            height: unset !important;
+        }
+    }
+}

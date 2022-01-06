@@ -1,5 +1,5 @@
-import { message} from 'antd';
-import { useEffect, useRef } from "react";
+import { message } from 'antd';
+import { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 
 export const defaultPosition = { lat: -7.224427, lng: -39.326499 };
@@ -18,7 +18,8 @@ export type PositionType = {
 
 interface GoogleMapProps {
     userLocation: PositionType | undefined;
-    setLocation: (location: PositionType) => void
+    // setLocation: (location: PositionType) => void
+    setLocation: Dispatch<SetStateAction<PositionType | undefined>>;
 }
 
 const GoogleMapComponent: React.FC<GoogleMapProps> = ({ userLocation, setLocation }) => {
@@ -27,14 +28,13 @@ const GoogleMapComponent: React.FC<GoogleMapProps> = ({ userLocation, setLocatio
         id: 'google-map-script',
         googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY as string
     });
-    const getUserLocation = () => {
-        getLocation((geolocation) => {
-            let location = { lat: geolocation.coords.latitude, lng: geolocation.coords.longitude };
-            setLocation(location);
+    useEffect(() => {
+        setLocation && getLocation((geolocation) => {
+            const location = { lat: geolocation.coords.latitude, lng: geolocation.coords.longitude };
             initialLocation.current = location;
-        })
-    }
-    useEffect(getUserLocation, []);
+            setLocation(location);
+        });
+    }, [setLocation]);
     return (
         <div className='map-container'>
             {isLoaded && (
