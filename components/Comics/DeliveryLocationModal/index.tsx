@@ -68,12 +68,17 @@ const DeliveryLocationModal: ForwardRefRenderFunction<DeliveryLocationModalRef, 
                         renderItem={item => (
                             <List.Item key={item.id} className={`background-white ${breakpoints.xs ? 'item-list-container-mobile' : 'item-list-container-desktop'}`}>
                                 <div className='item-card-container'>
+                                    <div className='image'>
+                                        <Img
+                                            src={`${item.thumbnail.path}/portrait_medium.${item.thumbnail.extension}`}
+                                            alt={item.title}
+                                        />
+                                    </div>
                                     <div className='delete-button' >
                                         <Tooltip title='Remover'>
                                             <Button danger onClick={() => removeComicFromBag(item.id)} shape='circle' icon={<FaTrash />} />
                                         </Tooltip>
                                     </div>
-                                    <Img src={`${item.thumbnail.path}/portrait_medium.${item.thumbnail.extension}`} alt={item.title} />
                                 </div>
                                 <Text strong className='text w-100' style={{ textAlign: breakpoints.xs ? 'center' : 'left' }}>{item.title}</Text>
                             </List.Item>
