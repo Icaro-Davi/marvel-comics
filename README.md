@@ -1,6 +1,6 @@
 ## Welcome
 
-This is a project for a job interview at brisanet
+This is a project consuming the Marvel Comics API, using React and Ant Design.
 
 ## How execute
 
